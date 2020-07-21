@@ -1,0 +1,75 @@
+{
+  "uid" : "cb4fa12c0a2b0e33",
+  "name" : "test_login_success_a",
+  "fullName" : "Test_allure_Login.TestLogin#test_login_success_a",
+  "historyId" : "73fd575440e992ec64f20de69eb1a8c0",
+  "time" : {
+    "start" : 1595241661249,
+    "stop" : 1595241661249,
+    "duration" : 0
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "8d0b5ed84f821865",
+      "name" : "stdout",
+      "source" : "8d0b5ed84f821865.txt",
+      "type" : "text/plain",
+      "size" : 42
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "hasContent" : true,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "登录模块"
+  }, {
+    "name" : "story",
+    "value" : "登录失败"
+  }, {
+    "name" : "suite",
+    "value" : "Test_allure_Login"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestLogin"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-8222JDF"
+  }, {
+    "name" : "thread",
+    "value" : "4740-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "Test_allure_Login"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "cb4fa12c0a2b0e33.json",
+  "parameterValues" : [ ]
+}
