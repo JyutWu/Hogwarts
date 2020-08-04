@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="1" hostname="DESKTOP-8222JDF" name="pytest" skipped="0" tests="3" time="0.039" timestamp="2020-07-21T18:56:18.370919"><testcase classname="Test_Cala" file="Test_Cala.py" line="5" name="test_add" time="0.000"></testcase><testcase classname="Test_Cala" file="Test_Cala.py" line="11" name="test_add2" time="0.000"><failure message="assert 3 == 2
+  +3
+  -2">@pytest.mark.add
+    def test_add2():
+        cal = Calculator()
+&gt;       assert 3 == cal.add(1, 1)
+E       assert 3 == 2
+E         +3
+E         -2
+
+Test_Cala.py:15: AssertionError</failure></testcase><testcase classname="Test_Cala" file="Test_Cala.py" line="17" name="test_div" time="0.001"></testcase></testsuite></testsuites>

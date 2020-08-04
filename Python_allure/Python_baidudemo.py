@@ -1,11 +1,9 @@
-import os
-import sys
+
 import time
 import allure
 import pytest
 from selenium import webdriver
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 
 
 @allure.feature('百度搜索')
@@ -25,3 +23,7 @@ def test_demo(test_data1):
         allure.attach.file('./image/b.png', name='搜索截图', attachment_type=allure.attachment_type.PNG)
     with allure.step('退出浏览器'):
         driver.close()
+
+
+if __name__ == '__main__':
+    pytest
