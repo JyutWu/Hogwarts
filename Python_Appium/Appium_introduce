@@ -1,0 +1,151 @@
+Appium是一个移动端的自动化测试框架，可用于测试原生应用，移动网页应
+用和混合应用，且是跨平台的。可用于iOS和Android操作系统。
+原生应用是指用android或iOS编写的应用
+移动网页应用是指网页应用，类似于iOS中safari应用或者chrome应用或者类似浏览器的应用。
+混合应用是指一种包裹webview的应用，原生应用网页内容交互性的应用。
+重要的是Appium是跨平台的。何为跨平台，意思是可以针对不同平台用一套api来编写脚本
+
+
+app信息
+获取当前界面元素：adb shell dumpsys activity top （推荐）
+获取任务列表：adb shell dumpsys activity activities
+app入口
+1.adb logcat | grep -i displayed（推荐）（重点）
+2.aapt dump badging mobike.apk | grep launchable-activity
+3.apkanalyzer 最新版本的sdk中才有
+启动应用
+adb shell am start -W -n com.xueqiue.android/.view.WelcomeActivityAlias -S（重点）
+
+用例组成部分
+1.导入依赖：
+from appium import webdriver
+2. capabilities设置
+3.初始化driver：
+python webdriver.remote
+4.隐式等待，增强用例的稳定性
+5.元素定位与操作find+action
+6.断言assert
+
+
+Capability设置
+1.app   apk地址
+2.appPackage   包名
+3.appActivity  Activity名字
+4.automationName默认使用uiautomator2(andorid默认使用uiautomator2,ios默认使用XCUITest)
+5.noReset（在测试后不停止APP，不清除APP数据，不卸载APP） fullReset （在测试后停止APP，清除APP数据，卸载APP）  是否在测试前后重置相关环境(例如首次打开弹框，或者是登录信息）
+        演示雪球的首次启动弹框功能，noreset=True,noreset=false情况
+6.unicodeKevBoard resetKeyBoard         是否需要输入非英文之外的语言并在测试完成后重置输入法
+        举例输入中文, alibaba,阿里巴巴
+7.官方文档：https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/caps.md
+8.dontStopAppOnReset    首次启动的时候，不停止app（可以调试或者运行的时候提升运行速度）[类似于浏览器复用，这里是指可在已打开的应用页面上继续执行测试用例]
+9.skipDeviceInitialization 跳过安装，权限设置等操作（可以调试或者运行的时候提升运行速度）
+10.newCommandTimeout   请求超时设置（默认为60s）
+11.udid 用于多设备时，选择某个设备
+12.autoGrantPermission 用于app授权弹框的处理（当 noReset为Ture时，不生效）
+
+
+常用的两种定位方式id,accessibility-id
+driver.find_element_by_id(resource-id）
+driver.find_element_by_accessibilityid(content-desc)
+
+
+Android是通过容器的布局属性来管理子控件的位置关系，布局过程就是把界面上所有的控件，根据它们对间距的大小，摆放在正确的位置
+七大布局：
+线性布局（LInearLayout）：设置为horizontal（横向）、vertical（纵向）两个值之一
+相对布局（RelativeLayout）：以一个布局的位置，相对的确认另一个布局
+帧布局（FrameLayout）：继承自ViewGroup组件，很少使用这个布局，主要可以使布局叠加。FrameLayout为每个加入其中的组件创建一个空白的区域(称为一帧)，每个子组件占据一帧，这些帧会根据gravity属性执行自动对齐。
+表格布局（TableLayout）：TableLayout包裹TableRow（行数），TableRow包裹view（列数）。
+绝对布局（absoluteLayout）：指定子元素的 xy 精确坐标的布局。绝对布局缺乏灵活性，在没有绝对定位的情况下相比其他类型的布局更难维护，不建议使用。
+网格布局（GridLayout）：网格矩阵形式的布局控件。
+约束布局（ConstraintLayout）：它的出现是为了解决复杂布局时，布局嵌套过多的问题（嵌套布局会增加绘制界面所需的时间）
+
+
+Android四大组件：
+Activity：用户和应用程序交互的窗口
+Service：实现程序后台运行的解决方案
+BroadCast Recevicer：广播接收器，监听外部事件的到来
+Content provider：内容提供者，可通过它来共享自己的数据给外部调用，给第三方应用提供数据访问的接口。
+
+Android常用控件：
+TextView（文本控件） EditText（可编辑文本控件）
+Button（按钮） ImageButton（图片按钮） ToggleButton（开关按钮）
+ImageView（图片控件）
+CheckBox（复选框控件） RadioButton（单选框控件）
+
+布局是一种可用于放置很多控件的容器，它可以按照一定的规律调整内部控件
+的位置，从而编写出精美的界面。当然，布局的内部除了放置控件外，也可以
+放置布局，通过多层布局的嵌套，我们就能够完成一些比较复杂的界面
+
+元素操作：
+
+点击方法 element.click()
+输入操作 element.send_keys("appium"）
+设置元素的值 element.set_value("appium")
+清除操作element.clear()
+是否可见element.is_displayed()返回True/False
+是否可用element.is_enabled()返回True/False
+是否被选中element.is_selected()返回True/False
+获取属性值get_attribute(name)
+
+获取元素文本： 格式： element.text
+获取元素坐标： 格式： element.location  结果：{'x':12,'y':20}
+获取元素尺寸(高和宽)： 格式：element.size   结果：{'width':500,'height':200}
+
+
+
+Uiautomator 定位
+用法：driver.find_element_by_android_uiautomator(表达式).click()
+
+通过resourceid定位
+new.UiSelector().resourceId("id")
+通过classname定位
+new.UiSelector().className("className")
+通过content-desc定位
+new.UiSelector().description("content-des属性")
+通过文本定位：
+       1.通过text文本定位语法
+            new UiSelector().text("text文本")
+       2.如果文本较长，可以用textContains模糊匹配
+            new UiSelector().textContains("包含text文本")
+       3.同样可以用textStartWith是以某个文本开头来匹配
+            new UiSelector().textStartWith("是以text文本开头")
+       4.也可以用正则表达式textMatches匹配
+            new UiSelector().textMatches("正则表达式")
+组合定位
+例1：id与text组合
+idtext='resourceId("com/baidu.yuedu:id/webbooktitle").text("小说")'
+driver.find_element_by_android_Uiautomator(id_text)．click()
+例2：class与text属性组合
+classtext='className("android.widget.TextView").text("图书"）'
+driver.find_element_by_android_Uiautomator(class—text).click()
+
+父子关系定位childSelector
+1.有时候不能直接定位某个元素，但是它的父元素很好定位，这时候就先定位父元
+素，通过父元素找丿L子
+※son='resourceld("com/baldu.yuedu:id/rl—tabs").childSelector(text("股票"））'
+兄弟定位fromParent
+2.有时候父元素不好定位，但是跟他相邻的兄弟元素很好定位，这时候就可以通过兄
+弟元素，找到同一父级元素下的子元素
+※brther='resourceld("com/baidu.yuedu:id/lefttitle").fromParent(text('用户')'
+
+滚动查找元素：
+new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text("查找的文本").instance(0))；
+
+
+显式等待
+显式等待可以等待动态加载的ajax元素，显式等待需要使ExpectedCondtions来检查条件
+一般页面上元素的呈现
+1.title出现首先出现title
+2.dom树出现presence，还不完整
+3.css出现（可见visibility）
+4.js出现，js特效执行（可点击clickable)
+html文档是自上而下加载的，
+js文件加载会阻塞Html内容的加载，有些JS异步加载的方式来完成js的加载
+样式表下载完成之后会跟之前的样式表一起进行解析，会对之前的元素重新渲染
+
+
+设备交互：
+1.测试过程中模拟来电、短信；（make_gsm_call 、send_sms）
+2.模拟网络的切换；(set_network_connection)
+3.运行过程中获取系统日志；
+4.截图（get_screenshot_as_file('./photo/xueqiu.png')）

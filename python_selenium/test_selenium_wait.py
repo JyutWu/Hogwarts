@@ -77,8 +77,10 @@ class TestWait:
 
         # def wait(x):#必须要传一个参数
         #     return self.driver.find_element_by_class_name("table-heading") is not None
+        # WebDriverWait(self.driver,10).until(wait)
 
-        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, '//*[@class="table-heading"]')))
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.visibility_of_element_located((By.XPATH, '//*[@class="table-heading"]')))
         self.driver.find_element(By.XPATH, '//*[@title="在最近的一年，一月，一周或一天最活跃的主题"]').click()
 
     # def test_a(self):
